@@ -1,0 +1,113 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="id" [(ngModel)]="baseObject.customerId" id="inputId" #customerId="ngModel"
+          placeholder="ID" [disabled]="true">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="name" [(ngModel)]="baseObject.customerName" id="inputCustomerName" #name="ngModel"
+          placeholder="Nome" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="cnpj" mask='00.000.000/0000-00' [(ngModel)]="baseObject.customerCnpj" id="inputCustomerCnpj" #cnpj="ngModel"
+          placeholder="CNPJ" required>
+      </mat-form-field>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Contatos
+        </mat-expansion-panel-header>
+        <app-contact *ngIf="!readOnlyForm" [contact]="contact" (addContact)="addContact($event)"></app-contact>
+
+        <mat-list>
+          <mat-list-item *ngFor="let contact of baseObject.customerContacts">
+            <h3 matLine> {{contact.value}} </h3>
+            <p matLine>
+              <span> {{contact.typeContact?.typeContactName}}</span>
+            </p>
+            <i *ngIf="!readOnlyForm" class="material-icons" (click)="removeContact(contact.value)" mat-icon-button
+              matTooltipClass="tooltipRed" matTooltip="Excluir">delete</i>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Endereços
+        </mat-expansion-panel-header>
+        <app-address *ngIf="!readOnlyForm" [address]="address" (addAddress)="addAddress($event)"></app-address>
+
+        <mat-list>
+          <mat-list-item *ngFor="let item of baseObject.customerAddress">
+            <h3 matLine> {{item.addressStreet}}-{{item.addressNumber}} </h3>
+            <p matLine>
+              <span> {{item.addressCity}} - {{item.addressCountry}}</span>
+            </p>
+            <i *ngIf="!readOnlyForm" class="material-icons" (click)="removeAddress(item)" mat-icon-button
+              matTooltipClass="tooltipRed" matTooltip="Excluir">delete</i>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Gerente da conta</mat-label>
+        <mat-select [disabled]="readOnlyForm" name="customerUserManager" [(ngModel)]="baseObject.customerUserManager"
+          required>
+          <mat-option *ngFor="let item of selectedUser" [value]="item">{{item.login}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Contratos</mat-label>
+        <mat-select [disabled]="readOnlyForm" name="listContract" [compareWith]="compareByOptionId"
+          [(ngModel)]="selectedContract" required>
+          <mat-option *ngFor="let item of listContract" [value]="item">{{item.contractName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <button [disabled]="readOnlyForm" mat-raised-button (click)="addContract()">Adicionar na Lista</button>
+      <mat-list>
+        <mat-list-item *ngFor="let contract of baseObject.contracts">
+          <h3 matLine> {{contract.contractName}} </h3>
+          <i *ngIf="!readOnlyForm" class="material-icons" (click)="remove(contract.contractId)" mat-icon-button
+            matTooltipClass="tooltipRed" matTooltip="Excluir">delete</i>
+        </mat-list-item>
+      </mat-list>
+
+    </div>
+
+
+    <div>
+      <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="baseObject.disabled" id="inputDisabled"
+        [disabled]="readOnlyForm" #disabled="ngModel">
+        Desabilitado?
+      </mat-checkbox>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial
+    [disabled]="!form.valid || readOnlyForm">Save</button>
+
+</mat-dialog-actions>

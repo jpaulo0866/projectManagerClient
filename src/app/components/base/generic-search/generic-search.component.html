@@ -1,0 +1,43 @@
+<div class="divWithBorder">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ searchTitle }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card>
+        <mat-card-content>
+          <form #form="ngForm" (ngSubmit)="search()">
+            <div *ngFor="let item of searchFields">
+              <mat-form-field *ngIf="item.type === textType">
+                <input [type]="item.type.valueOf()" matInput [placeholder]="item.canonicName"
+                  [(ngModel)]="searchObject[item.name]" [name]="item.name">
+              </mat-form-field>
+
+              <mat-checkbox *ngIf="item.type === checkType" [name]="item.name" [(ngModel)]="searchObject[item.name]">
+                {{item.canonicName}}
+              </mat-checkbox>
+
+              <mat-form-field *ngIf="item.type === selectType">
+                <mat-label>Perfil</mat-label>
+                <mat-select [name]="item.name" [(ngModel)]="searchObject[item.name]">
+                  <mat-option *ngFor="let option of item.dataSource" [value]="option">{{option[item.dataSourceField]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+            <mat-card-actions>
+              <button mat-stroked-button type="reset" (click)="clearFields()" color="accent">Limpar Campos</button>
+              <button mat-stroked-button type="submit" color="primary">Pesquisar</button>
+            </mat-card-actions>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+</div>

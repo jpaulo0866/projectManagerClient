@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de Estágios de projeto"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Estágios de Projeto"
+  [service]="projectStageService" 
+  objectKey="projectStageId"
+  [tableModel]="projectStageModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

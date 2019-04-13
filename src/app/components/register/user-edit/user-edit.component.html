@@ -1,0 +1,74 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="id" [(ngModel)]="baseObject.userId" id="inputId" #userId="ngModel" placeholder="ID"
+          [disabled]="true">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="login" [(ngModel)]="baseObject.login" id="inputLogin" #login="ngModel" placeholder="Login"
+          [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="password" name="password" [(ngModel)]="baseObject.password" id="inputPass"
+          #password="ngModel" placeholder="Password" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+
+      <mat-checkbox name="ldapUser" [(ngModel)]="baseObject.ldapUser" id="inputLdapUser" [disabled]="readOnlyForm"
+        #ldapUser="ngModel">Usuário do Active Directory?
+      </mat-checkbox>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Perfil</mat-label>
+        <mat-select [disabled]="readOnlyForm" name="profileSelect"
+          [compareWith]="compareByOptionId" [(ngModel)]="baseObject.profile" required>
+          <mat-option *ngFor="let prof of profiles" [value]="prof">{{prof.profileName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <app-person-render [person]="baseObject.person" [readOnlyForm]="readOnlyForm" [hideFields]="hideFields">
+      </app-person-render>
+
+    <div>
+      <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="baseObject.disabled" id="inputDisabled"
+        [disabled]="readOnlyForm" #disabled="ngModel">
+        Desabilitado?
+      </mat-checkbox>
+    </div>
+    
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Imagem do Perfil</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <img class="imgEdit" [src]="baseObject.image" id="inputImage">
+          </mat-card-content>
+          <mat-card-actions>
+              <input type="file" id="image" [disabled]="readOnlyForm" (change)="onFileChange($event)">
+          </mat-card-actions>
+    </mat-card>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial
+    [disabled]="!form.valid">Save</button>
+
+</mat-dialog-actions>

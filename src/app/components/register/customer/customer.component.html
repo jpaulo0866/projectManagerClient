@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de Clientes"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Clientes"
+  [service]="customerService" 
+  objectKey="customerId"
+  [tableModel]="customerModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

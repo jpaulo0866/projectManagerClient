@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de SubMenu"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de SubMenus"
+  [service]="subMenuService" 
+  objectKey="subMenuId"
+  [tableModel]="subMenuModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

@@ -1,0 +1,20 @@
+<div class="divWithBorder">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Pesquisas
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-generic-search searchTitle="Pesquisar por Login" [searchFields]="searchModel" (searchEvent)="search($event)">
+        </app-generic-search>
+        <app-generic-search searchTitle="Pesquisar por Perfil" [searchFields]="searchProfileModel" (searchEvent)="searchProfile($event)">
+          </app-generic-search>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<app-tablepaginated headerTitle="Cadastro de Usuários" [service]="userService" objectKey="userId"
+  [tableModel]="userModel" [editMethod]="openDialog" [createMethod]="openDialog" [detailMethod]="openDialog"
+  [deleteMethod]="delete" [dialogService]="dialog" [modalDialog]="modal" [childModal]="childView">
+</app-tablepaginated>

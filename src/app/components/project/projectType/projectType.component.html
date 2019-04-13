@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de Tipo de Projeto"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Tipo de Projeto"
+  [service]="projectTypeService" 
+  objectKey="projectTypeId"
+  [tableModel]="projectTypeModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

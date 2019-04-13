@@ -1,0 +1,64 @@
+<mat-accordion>
+  <div *ngFor="let item of listMenu">
+    <mat-expansion-panel class="shadowExpasionMenu" *ngIf="hasChildren(item)" id="menu_item">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <i class="material-icons">{{item.icon}}</i>
+        </mat-panel-title>
+        <mat-panel-description>
+          {{item.name}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-accordion>
+        <div *ngFor="let node of item.children" class="menu_submenu_item"
+          [class.menu_submenu_item]="nodename === getActivatedRoute()">
+          <mat-expansion-panel class="shadowExpasionMenu" *ngIf="hasChildren(node)" id="menu_sub_item">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="material-icons">{{node.icon}}</i>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{node.name}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-accordion>
+              <div *ngFor="let nodeItem of node.children" class="menu_submenu_item"
+                [class.menu_submenu_item]="nodeItem.name === getActivatedRoute()" id="menu_submenu_item_subitem">
+                <mat-expansion-panel class="shadowExpasionMenu" *ngIf="hasChildren(nodeItem)">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <i class="material-icons">{{nodeItem.icon}}</i>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{nodeItem.name}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <button mat-icon-button (click)="route(nodeItem.link)">
+                    <i class="material-icons">{{nodeItem.icon}}</i>
+                    {{nodeItem.name}}
+                  </button>
+                </mat-expansion-panel>
+                <button mat-icon-button (click)="route(nodeItem.link)" *ngIf="!hasChildren(nodeItem)">
+                  <i class="material-icons">{{nodeItem.icon}}</i>
+                  {{nodeItem.name}}
+                </button>
+                <span class="span_visited" [class.span_visited]="nodeItem.name === getActivatedRoute()"></span>
+              </div>
+            </mat-accordion>
+          </mat-expansion-panel>
+          <button mat-icon-button (click)="route(node.link)" *ngIf="!hasChildren(node)">
+            <i class="material-icons" value="node.link">{{node.icon}}</i>
+            {{node.name}}
+          </button>
+        </div>
+      </mat-accordion>
+    </mat-expansion-panel>
+    <button mat-icon-button (click)="route(item.link)" *ngIf="!hasChildren(item)">
+      <i class="material-icons" value="item.link">{{item.icon}}</i>
+      {{item.name}}
+    </button>
+  </div>
+
+</mat-accordion>

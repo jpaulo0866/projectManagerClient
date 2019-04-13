@@ -1,0 +1,95 @@
+.centerDiv {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(124.85deg, #109ded 0%, #1a3f54 97.71%, #0d4667 126.96%, #0d3952 136.93%);
+  // background-color: red;
+}
+.container_login {
+  width: 25%;
+  min-width: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%,-50%);
+}
+.form_login {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.container_inputs {
+  width: 60%;
+  margin: 10px;
+}
+.img_login {
+  width: 105px;
+  height: 105px;
+  border-radius: 100%;
+  // border: 2px solid white;
+  margin-bottom: 35px;
+  background-size: cover;
+  background-position: center center;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%,-50%);
+  transition: .7s;
+}
+.container_button_login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.btn_login {
+  background: linear-gradient(90deg, #118ecc 0%, #0da7ff 100%);
+  border-radius: 5px;
+  width: 35%;
+}
+#img_logo {
+  position: absolute;
+  top: 95%;
+  left: 100%;
+  transform: translate(-130%, -90%);
+  transition: 3s;
+}
+@media screen and (max-width: 1000px) {
+  #img_logo {
+    left: 50%;
+    transform: translate(-50%, -90%);
+  }
+  .btn_login {
+    background-color: red;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+    
+}

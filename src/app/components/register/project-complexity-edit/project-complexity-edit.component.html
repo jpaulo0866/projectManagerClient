@@ -1,0 +1,40 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="ID" name="id" [(ngModel)]="baseObject.projectComplexityId" id="inputId"
+          #projectComplexityId="ngModel" placeholder="ID" [disabled]="true">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="complexity" name="complexity" [(ngModel)]="baseObject.projectComplexityName"
+          id="inputProjectComplexityName" placeholder="Complexidade" #complexity="ngModel" [disabled]="readOnlyForm"
+          required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="hours" name="hours" [(ngModel)]="baseObject.projectComplexityHours"
+          id="inputProjectComplexityHours" #hours="ngModel" placeholder="Horas" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="cost" [(ngModel)]="baseObject.projectComplexityCost" id="inputProjectComplexityCost"
+          #cost="ngModel" placeholder="Custo em Reais" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary"
+    [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>

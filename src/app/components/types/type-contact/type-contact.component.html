@@ -1,0 +1,14 @@
+<app-tablepaginated 
+  headerTitle="Cadastro de Tipos de Contato"
+  [service]="typeContactService" 
+  [baseObject]="typeContact"
+  objectKey="typeContactId"
+  [tableModel]="typeContactModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

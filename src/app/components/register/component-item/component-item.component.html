@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de Componentes"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Componentes"
+  [service]="componentItemService" 
+  objectKey="componentItemId"
+  [tableModel]="componentItemModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

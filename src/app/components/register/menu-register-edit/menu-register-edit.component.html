@@ -1,0 +1,54 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+    <div>
+
+      <mat-form-field>
+        <input matInput placeholder="ID" name="id" [(ngModel)]="baseObject.menuId" id="inputId" #teamId="ngModel"
+          placeholder="ID" [disabled]="true">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="menuName" [(ngModel)]="baseObject.menuName" id="inputTeamName" #teamName="ngModel"
+          placeholder="Nome" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="baseObject.disabled" id="inputDisabled"
+        [disabled]="readOnlyForm" #disabled="ngModel">
+        Desabilitado
+      </mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Submenu</mat-label>
+      <mat-select [disabled]="readOnlyForm" name="userSelect" [compareWith]="compareByOptionId" [(ngModel)]="selected">
+        <mat-option *ngFor="let item of listSubMenu" [value]="item">{{item.subMenuName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="addSubMenu()">Adicionar na Lista</button>
+
+    <mat-list>
+      <mat-list-item *ngFor="let item of baseObject.subMenu">
+        <h3 matLine> {{selected.subMenuName}} </h3>
+        <p matLine>
+          <span> {{selected.profileName}}</span>
+        </p>
+        <i class="material-icons" (click)="remove(selected.subMenuId)" 
+            mat-icon-button matTooltipClass="tooltipRed" matTooltip="Excluir">delete</i>
+      </mat-list-item>
+    </mat-list>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary"
+    [disabled]="!form.valid">Save</button>
+
+</mat-dialog-actions>

@@ -1,0 +1,71 @@
+<div class="divWithBorder">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{headerTitle}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [ngClass]="classCss" role="alert" *ngIf="message">
+        <strong>{{message.text}}</strong>
+      </div>
+      <form>
+        <div *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <div>
+          <button matTooltip="Cria um Novo Item" mat-icon-button *ngIf="createMethod"><i class="material-icons"
+              (click)="createMethod()">add_circle_outline</i></button>
+          <button matTooltip="Realiza a Pesquisa Novamente" mat-icon-button><i class="material-icons"
+                (click)="resetDefaultPagination()">autorenew</i></button>
+          <!-- <button mat-raised-button color="primary" *ngIf="createMethod" (click)="createMethod()">Novo Item</button> -->
+  
+          <table mat-table [dataSource]="listObject" matSort class="genericTable">
+  
+            <ng-container *ngIf="generateSelection" matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row; let i = index;">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(index, row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+  
+            <ng-container *ngFor="let model of tableModel" matColumnDef="{{model.canonicClassName}}">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{model.canonicClassName}}</th>
+              <td mat-cell *matCellDef="let row">{{getFormatedValue(row[model.fieldClassName],model) | maskWithValidation: model}}</td>
+            </ng-container>
+  
+            <ng-container *ngIf="containActionButtons()" matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Ações</th>
+              <td mat-cell *matCellDef="let item">
+                <button *ngIf="detailMethod" matTooltip="Detalhes" mat-icon-button color="primary"
+                  style="margin-right: 3px">
+                  <i class="material-icons" (click)="detailMethod(item[objectKey], true)">info</i>
+                </button>
+                <button *ngIf="editMethod" mat-icon-button matTooltip="Editar" color="accent" style="margin-right: 3px">
+                  <i class="material-icons" (click)="editMethod(item[objectKey])">edit</i>
+                </button>
+                <button *ngIf="deleteMethod" mat-icon-button matTooltipClass="tooltipRed" matTooltip="Excluir"
+                  color="warn" style="margin-right: 3px">
+                  <i class="material-icons" (click)="deleteMethod(item[objectKey])">delete</i>
+                </button>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;let i = index"></tr>
+          </table>
+        </div>
+        <mat-card-actions>
+          <mat-paginator id="paginationId" color="primary" [length]="totalElements" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons>
+          </mat-paginator>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+</div>

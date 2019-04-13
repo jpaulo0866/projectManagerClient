@@ -1,0 +1,16 @@
+.fillEmptySpace {
+  flex: 1 1 auto;
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.headerFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}

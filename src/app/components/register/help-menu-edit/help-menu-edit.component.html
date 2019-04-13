@@ -1,0 +1,37 @@
+<mat-dialog-content>
+    <form #form="ngForm">
+        <div [ngClass]="classCss" role="alert" *ngIf="message">
+            <strong>{{message.text}}</strong>
+        </div>
+        <div>
+            <mat-form-field>
+                    <input matInput name="id" [(ngModel)]="baseObject.helpMenuId" id="inputId" #helpMenuId="ngModel" placeholder="ID"
+                    [disabled]="true">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Componente</mat-label>
+                <mat-select [disabled]="readOnlyForm" name="component" [compareWith]="compareByOptionId" [(ngModel)]="baseObject.component">
+                    <mat-option *ngFor="let component of listComponents" [value]="component">{{component.componentName}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <textarea matInput placeholder="Template HTML" [(ngModel)]="baseObject.templateHTML"
+                name="templateHtml"
+                    id="inputtemplateHTML" #templateHTML="ngModel" placeholder="Template HTML"
+                    [disabled]="readOnlyForm" required></textarea>
+            </mat-form-field>
+        </div>
+        <div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="accent">Cancel</button>
+    <button (click)="save()" mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary"
+        [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>

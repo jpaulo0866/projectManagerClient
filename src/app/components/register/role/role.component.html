@@ -1,0 +1,19 @@
+<app-generic-search
+searchTitle="Pesquisa de Cargos"
+[searchFields]="searchModel"
+(searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated
+  headerTitle= "Cadastro de Cargos"
+  [service]= "roleService"
+  objectKey= "roleId"
+  [tableModel]= "roleModel"
+  [editMethod]= "openDialog"
+  [createMethod]= "openDialog"
+  [detailMethod]= "openDialog"
+  [deleteMethod]= "delete"
+  [dialogService]= "dialog"
+  [modalDialog]= "modal"
+  [childModal]= "childView">
+</app-tablepaginated>

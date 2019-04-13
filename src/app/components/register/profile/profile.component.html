@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa de Perfils"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Perfils"
+  [service]="profileService" 
+  objectKey="profileId"
+  [tableModel]="profileModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

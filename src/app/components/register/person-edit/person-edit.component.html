@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  <div [ngClass]="classCss" role="alert" *ngIf="message">
+    <strong>{{message.text}}</strong>
+  </div>
+  <app-person-render [person]="baseObject" [readOnlyForm]="readOnlyForm">
+  </app-person-render>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="baseObject" cdkFocusInitial color="primary"
+    [disabled]="!isValidForm() || readOnlyForm" >Save</button>
+
+</mat-dialog-actions>

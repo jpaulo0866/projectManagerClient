@@ -1,0 +1,80 @@
+<form #form="ngForm">
+  <div *ngIf="!hideField('personId')">
+    <mat-form-field>
+      <input matInput placeholder="ID" name="id" [(ngModel)]="person.personId" id="inputId" placeholder="ID"
+        [disabled]="true">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="!hideField('firstName')">
+    <mat-form-field>
+      <input matInput name="firstName" [(ngModel)]="person.firstName" id="inputFirstName" placeholder="Primeiro Nome"
+        [disabled]="readOnlyForm" required>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="!hideField('lastName')">
+    <mat-form-field>
+      <input matInput name="lastName" [(ngModel)]="person.lastName" id="inputLastName" placeholder="Sobrenome"
+        [disabled]="readOnlyForm" required>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="!hideField('cpf')">
+    <mat-form-field>
+      <input matInput name="cpf" [(ngModel)]="person.cpf" id="inputCpf" placeholder="CPF" [disabled]="readOnlyForm"
+        mask='000.000.000-00' required>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="!hideField('disabled')">
+
+    <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="person.disabled" id="inputDisabled"
+      [disabled]="readOnlyForm" #disabled="ngModel">
+      Desabilitado
+    </mat-checkbox>
+
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="!hideField('contacts')">
+      <mat-expansion-panel-header>
+        Contatos
+      </mat-expansion-panel-header>
+      <app-contact *ngIf="!readOnlyForm" [contact]="contact" (addContact)="addContact($event)"></app-contact>
+
+      <mat-list>
+        <mat-list-item *ngFor="let contact of person.contacts">
+          <h3 matLine> {{contact.value}} </h3>
+          <p matLine>
+            <span> {{contact.typeContact?.typeContactName}}</span>
+          </p>
+          <i *ngIf="!readOnlyForm" class="material-icons" (click)="removeContact(contact.value)" mat-icon-button matTooltipClass="tooltipRed"
+            matTooltip="Excluir">delete</i>
+        </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="!hideField('addresses')">
+      <mat-expansion-panel-header>
+        Endereços
+      </mat-expansion-panel-header>
+      <app-address *ngIf="!readOnlyForm" [address]="address" (addAddress)="addAddress($event)"></app-address>
+
+      <mat-list>
+        <mat-list-item *ngFor="let item of person.addresses">
+          <h3 matLine> {{item.addressStreet}}-{{item.addressNumber}} </h3>
+          <p matLine>
+            <span> {{item.addressCity}} - {{item.addressCountry}}</span>
+          </p>
+          <i *ngIf="!readOnlyForm" class="material-icons" (click)="removeAddress(item)" mat-icon-button matTooltipClass="tooltipRed"
+            matTooltip="Excluir">delete</i>
+        </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+
+</form>

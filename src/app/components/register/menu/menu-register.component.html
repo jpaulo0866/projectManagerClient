@@ -1,0 +1,16 @@
+<app-tablepaginated 
+  headerTitle="Cadastro de Menus"
+  [service]="menuRegisterService" 
+  objectKey="menuId"
+  [tableModel]="menuRegisterModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>
+
+
+

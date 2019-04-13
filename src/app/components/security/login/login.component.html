@@ -1,0 +1,18 @@
+<mat-card class="centerDiv">
+    <img *ngIf="userImage" class="img_login" [src]="userImage" id="img_login">
+    <mat-card-content class="container_login">
+    <form #form="ngForm" (ngSubmit)="doLogin()" class="form_login">
+      <mat-form-field class="container_inputs" id="input_login">
+        <input matInput placeholder="Login" [(ngModel)]="user.login" class="input user" #login="ngModel" name="login"
+          (blur)="getImage()" required>
+      </mat-form-field>
+      <mat-form-field class="container_inputs" id="input_pass">
+        <input matInput type="password" placeholder="Password" [(ngModel)]='user.password' class="input pass"
+          name="password" #login="ngModel" required>
+      </mat-form-field>
+      <mat-card-actions class="container_button_login" id="btn_login">
+        <button mat-raised-button color="primary" [disabled]="!form.valid" class="btn_login">Login</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

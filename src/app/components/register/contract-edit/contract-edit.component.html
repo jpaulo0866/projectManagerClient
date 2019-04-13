@@ -1,0 +1,75 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput name="id" [(ngModel)]="baseObject.contractId" id="inputId" #userId="ngModel" placeholder="ID"
+          [disabled]="true">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput name="contractName" [(ngModel)]="baseObject.contractName" id="inputContractName"
+          #login="ngModel" placeholder="Nome do Contrato" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Tipo de Contrato</mat-label>
+        <mat-select [disabled]="readOnlyForm" name="typeOfContractSelect" [compareWith]="compareByOptionId"
+          [(ngModel)]="baseObject.typeOfContract" required>
+          <mat-option *ngFor="let typeOfContract of typeOfContracts" [value]="typeOfContract">
+            {{typeOfContract.typeOfContractName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="text" name="hourPackageName" [(ngModel)]="baseObject.contractHourPackage.hourPackageName"
+          id="inputHourPackageName" #hourPackageName="ngModel" placeholder="Nome do pacote de horas"
+          [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="text" name="hourPackageAmountHour"
+          [(ngModel)]="baseObject.contractHourPackage.hourPackageAmountHour" id="inputHourPackageAmountHour"
+          #hourPackageAmountHour="ngModel" placeholder="Horas" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="baseObject.disabled" id="inputDisabled"
+        [disabled]="readOnlyForm" #disabled="ngModel">
+        Desabilitado?
+      </mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Pessoas</mat-label>
+      <mat-select [disabled]="readOnlyForm" name="personSelect" [compareWith]="compareByOptionId"
+        [(ngModel)]="selected">
+        <mat-option *ngFor="let item of listPeople" [value]="item">{{item.firstName}} {{item.lasttName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="addPerson()">Adicionar na Lista</button>
+
+    <mat-list>
+      <mat-list-item *ngFor="let person of baseObject.contractRelatedPerson">
+        <h3 matLine> {{person.firstName}} {{person.lastName}} </h3>
+        <i *ngIf="!readOnlyForm" class="material-icons" (click)="remove(person.personId)" mat-icon-button matTooltipClass="tooltipRed"
+          matTooltip="Excluir">delete</i>
+      </mat-list-item>
+    </mat-list>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial
+    [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,55 @@
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div [ngClass]="classCss" role="alert" *ngIf="message">
+      <strong>{{message.text}}</strong>
+    </div>
+    <div>
+
+      <mat-form-field>
+        <input matInput placeholder="ID" name="id" [(ngModel)]="baseObject.teamId" id="inputId" #teamId="ngModel"
+          placeholder="ID" [disabled]="true">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput name="teamName" [(ngModel)]="baseObject.teamName" id="inputTeamName" #teamName="ngModel"
+          placeholder="Name" [disabled]="readOnlyForm" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox style="margin: 0 10px" name="disabled" [(ngModel)]="baseObject.disabled" id="inputDisabled"
+        [disabled]="readOnlyForm" #disabled="ngModel">
+        Desabilitado
+      </mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Usuários</mat-label>
+      <mat-select [disabled]="readOnlyForm" name="userSelect" [compareWith]="compareByOptionId" [(ngModel)]="selected">
+        <mat-option *ngFor="let item of listUsers" [value]="item">{{item.login}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="addUser()">Adicionar na Lista</button>
+
+    <mat-list>
+      <mat-list-item *ngFor="let user of baseObject.users">
+        <img matListAvatar [src]="user.image">
+        <h3 matLine> {{user.login}} </h3>
+        <p matLine>
+          <span> {{user.profile?.profileName}}</span>
+        </p>
+        <i class="material-icons" (click)="remove(user.userId)" 
+            mat-icon-button matTooltipClass="tooltipRed" matTooltip="Excluir">delete</i>
+      </mat-list-item>
+    </mat-list>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button (click)="save()" mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary"
+    [disabled]="!form.valid">Save</button>
+
+</mat-dialog-actions>

@@ -1,0 +1,13 @@
+<app-tablepaginated 
+headerTitle="Cadastro de Complexidade de Projeto"
+[service]="projectComplexityService" 
+objectKey="projectComplexityId"
+[tableModel]="projectComplexityModel"
+[editMethod]="openDialog"
+[createMethod]="openDialog"
+[detailMethod]="openDialog"
+[deleteMethod]="delete"
+[dialogService]="dialog"
+[modalDialog]="modal"
+[childModal]="childView">
+</app-tablepaginated>

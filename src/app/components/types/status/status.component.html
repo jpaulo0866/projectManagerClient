@@ -1,0 +1,13 @@
+<app-tablepaginated 
+  headerTitle="Cadastro de Tipos de Status"
+  [service]="statusService"
+  objectKey="statusId"
+  [tableModel]="statusModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>

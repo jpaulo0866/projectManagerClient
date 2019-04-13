@@ -1,0 +1,47 @@
+<ng-container>
+  <mat-toolbar *ngIf="isLoggedUser()" class="headerFixed" color="primary">
+    <span><b>Project Manager</b></span>
+    <button mat-icon-button><i class="material-icons" (click)="sidenav.toggle()">menu</i></button>
+    <app-header *ngIf="isLoggedUser()"></app-header>
+    <span class="fillEmptySpace"></span>
+    <mat-chip-list>
+      <mat-chip *ngFor="let pages of mostUsedPages" selected [color]="accent">
+        <i class="material-icons" (click)="internalRoute(pages.pageLink)"
+          [matTooltip]="pages.pageName">{{pages.pageIcon}}</i>
+      </mat-chip>
+    </mat-chip-list>
+    <img class="img-circle" [matMenuTriggerFor]="menu" *ngIf="isLoggedUser()" [src]="userImage()">
+    <mat-menu #menu="matMenu">
+      <span mat-menu-item color="accent" class="container_user_perfil">
+        <span class="user name">{{ sharedService.userName }}</span>
+        <span color="accent" class="user perfil">
+          {{ sharedService.user?.profile?.profileName }}
+        </span>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item>
+        <mat-slide-toggle color="primary" [checked]="darkThemeChecked" (change)="changeTheme($event)">Tema Escuro</mat-slide-toggle>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item (click)="openMyProfile()" color="accent">Meu Perfil</span>
+      <span mat-menu-item color="accent">Meus Horários</span>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>
+  <mat-sidenav-container class="menuContainer" [class.menuContainer]="isLoggedUser()">
+    <mat-sidenav #sidenav class="sidenavMenu" [mode]="mode.value" opened>
+      <app-menu *ngIf="isLoggedUser()" (menuClickEvent)="menuOutputEvent($event)"></app-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div [ngClass]="showSideMenu()">
+        <section class="content-header">
+        </section>
+
+        <section class="content">
+          <router-outlet></router-outlet>
+        </section>
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

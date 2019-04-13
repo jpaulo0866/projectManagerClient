@@ -1,0 +1,19 @@
+<app-generic-search
+  searchTitle="Pesquisa Employee"
+  [searchFields]="searchModel"
+  (searchEvent)="search($event)">
+</app-generic-search>
+
+<app-tablepaginated 
+  headerTitle="Cadastro de Employee"
+  [service]="employeeService" 
+  objectKey="employeeId"
+  [tableModel]="employeeModel"
+  [editMethod]="openDialog"
+  [createMethod]="openDialog"
+  [detailMethod]="openDialog"
+  [deleteMethod]="delete"
+  [dialogService]="dialog"
+  [modalDialog]="modal"
+  [childModal]="childView">
+</app-tablepaginated>
