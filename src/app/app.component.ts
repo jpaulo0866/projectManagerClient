@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
   onSetTheme() {
     if (!this.actualTheme) {
-      this.actualTheme = Constants.THEME_GLOBAL;
+      this.actualTheme = Constants.THEME_DARK_GLOBAL;
     }
 
     this.darkThemeChecked = this.actualTheme.includes('dark');
